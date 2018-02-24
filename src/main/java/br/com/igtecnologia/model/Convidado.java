@@ -3,16 +3,30 @@ package br.com.igtecnologia.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-public class Convidado {
+public class Convidado extends Historico {
 	
 	@Id
 	@GeneratedValue
 	private Long id;
 	
+	@NotEmpty(message="{convidado.nome.notEmpty}")
 	private String nome;
+	
+	@Min(message="{convidado.quantidadeAcompanhantes.min}", value = 0)
 	private Integer quantidadeAcompanhantes;
+	
+	public Convidado() {
+	}
+	
+	public Convidado(String nome, int quantidadeAcompanhantes) {
+		this.nome = nome;
+		this.quantidadeAcompanhantes = quantidadeAcompanhantes;
+	}
 	
 	public Long getId() {
 		return id;

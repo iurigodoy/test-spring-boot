@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <body class="nav-md" th:fragment="body (nomeDaPagina, fragmentoDeVisualizacao, fragmentoDeAdicao)">
+    <div class="container body">
+      <div class="main_container">
+      	<div th:replace="page/menu-nav-left :: menu-nav-left"></div>
+      	<div th:replace="page/menu-nav-top :: menu-nav-top"></div>
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div th:replace="page/page-title :: page-title"></div>
+	
+			<div class="clearfix"></div>
+			
+            <div class="row">
+              <div class="col-md-8 col-sm-8 col-xs-12">
+                <div class="x_panel">
+                  <div th:replace="page/page-menu-config :: page-menu-config"></div>
+                  <div class="x_content">
+					<div class="panel-body">
+					  <div th:replace="${nomeDaPagina} :: ${fragmentoDeVisualizacao}"></div>
+					</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="x_panel">
+                  <div th:replace="page/page-menu-config-add :: page-menu-config"></div>
+                  <div class="x_content">
+					<div class="panel-body">
+					  <div th:replace="${nomeDaPagina} :: ${fragmentoDeAdicao}"></div>
+					</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+        
+		<div th:replace="page/footer :: footer"></div>
+      </div>
+    </div>
+
+    <div th:replace="page/footer-scripts :: footer-scripts"></div>
+  </body>
+</html>

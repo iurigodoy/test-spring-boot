@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <div th:fragment="visualizacao">
+	<table id="datatable-pt_br-responsivo" cellspacing="0" width="100%"
+		class="table table-striped table-bordered dt-responsive nowrap">
+	  <thead>
+		<tr>
+		<th>Nome</th>
+		<th>Acompanhantes</th>
+		<th></th>
+		</tr>
+	  </thead>
+	  <tbody>
+		<tr th:each="convidado : ${convidados}">
+		  <td th:text="${convidado.nome}"></td>
+		  <td th:text="${convidado.quantidadeAcompanhantes} + ' ' + ${convidado.deleted}"></td>
+		  <td>
+			<div th:insert="page/btnGroup :: btnGroup (id=${convidado.id}, deleted=false)"></div>
+		  </td>
+		</tr>
+	  </tbody>
+	</table>
+
+	<script type="text/javascript" th:fragment="script">
+	
+		objectName = "Convidado";
+	
+		edition_param	= "getone" + objectName;					// Find Controller Function
+		delete_message	= 'quer mesmo deletar este convidado?';		// Delete Message
+		delete_param	= "delete" + objectName;					// Delete Controller Function
+		restore_param	= "restore" + objectName;					// Restore Controller Function
+	
+	</script>
+  </div>
+  
+  
+  
+  <div th:fragment="adicao">
+	<form class="form-inline" method="POST" th:object="${convidado}" th:action="@{/index}" style="margin: 20px 0">
+	  <div class="form-group">
+		<input type="text" class="form-control" th:field="*{nome}" placeholder="Nome"/>
+		<input type="text" class="form-control" th:field="*{quantidadeAcompanhantes}" placeholder="Acompanhantes"/>
+		<button type="submit" class="btn btn-primary">Adicionar</button>
+	  </div>
+	</form>
+  </div>
+	
+	
+	
+	<div class="modal fade bs-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog modal-md">
+		<div class="modal-content">
+		  <form th:action="@{/request}" method="POST" class="form-horizontal form-label-left input_mask">
+			<div class="modal-header">
+			  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+		      </button>
+		      <h4 class="modal-title" id="myModalLabel"><i class="fa fa-spinner fa-spin spin-load"></i> Empresa</h4>
+		    </div>
+		    <div class="modal-body">
+		    	<div id="modal_content"></div>
+		    </div>
+		    <div class="modal-footer">
+		    	<button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
+		        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Salvar</button>
+		    </div>
+		  </form>
+		</div>
+	  </div>
+	</div>
+</html>
